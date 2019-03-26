@@ -9,6 +9,12 @@ import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
+/**
+ * 
+ * @author ÁõÉ­»ª
+ * 2019/03/26
+ */
+
 public class TestMybatisGenerator {
   
   public static void main(String[] args) throws Exception {
