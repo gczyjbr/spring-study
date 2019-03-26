@@ -12,6 +12,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.how2java.mapper.CategoryMapper;
 import com.how2java.mapper.OrderMapper;
 import com.how2java.mapper.ProductMapper;
@@ -32,7 +34,7 @@ public class TestMybatis {
     InputStream inputStream = Resources.getResourceAsStream(resource);
     SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     SqlSession session = sqlSessionFactory.openSession();
-//    CategoryMapper mapper = session.getMapper(CategoryMapper.class);
+    CategoryMapper mapper = session.getMapper(CategoryMapper.class);
 //    ProductMapper mapper = session.getMapper(ProductMapper.class);
     
 //    Category c = new Category();
@@ -181,10 +183,38 @@ public class TestMybatis {
 //    }
     
 //    xmlWay(session, 10, 15);
-    annotationWay(session, 10, 15);
+//    annotationWay(session, 10, 15);
+    
+//    PageHelper.offsetPage(0, 5);
+//    
+//    List<Category> cs = session.selectList("listCategory");
+//    for (Category c : cs)
+//      System.out.println(c.getName());
+//    
+//    PageInfo pageInfo = new PageInfo<>(cs);
+//    System.out.println("×ÜÊý£º" + pageInfo.getTotal());
+//    System.out.println(pageInfo);
+    
+//    Category c1 = session.selectOne("getCategory", 15);
+//    System.out.println(c1);
+//    Category c2 = session.selectOne("getCategory", 15);
+//    System.out.println(c2);
+//    
+//    session.commit();
+//    session.close();
+//    
+//    SqlSession session2 = sqlSessionFactory.openSession();
+//    Category c3 = session2.selectOne("getCategory", 15);
+//    System.out.println(c3);
+//    
+//    session2.commit();
+//    
+//    session2.close();
+    
+    int count = mapper.count();
+    System.out.println(count);
     
     session.commit();
-    
     session.close();
     
   }

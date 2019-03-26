@@ -25,6 +25,9 @@ import com.how2java.pojo.Category;
 
 public interface CategoryMapper {
 
+  @Select("select count(*) from category_")
+  public int count();
+  
   @InsertProvider(type = CategoryDynaSqlProvider.class, method = "add")
   public int add(Category category);
 

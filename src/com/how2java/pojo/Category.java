@@ -1,5 +1,6 @@
 package com.how2java.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,9 @@ import java.util.List;
  * @author ÁõÉ­»ª 2019/03/22
  */
 
-public class Category {
+public class Category implements Serializable{
+
+  private static final long serialVersionUID = -395134501521208506L;
   private int id;
   private String name;
   List<Product> products;

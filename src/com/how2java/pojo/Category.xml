@@ -25,7 +25,8 @@
       select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname' from category_ c left join product_ p on c.id = p.cid where c.id = #{id}
     </select>   
      -->
-     
+   
+   <cache/>
    <insert id="addCategory" parameterType="Category" >
             insert into category_ ( name ) values (#{name})   
         </insert>
@@ -43,8 +44,8 @@
         </update>
         <select id="listCategory" resultType="Category">
             select * from   category_
-                <if test="start!=null and count!=null">
+                <!-- <if test="start!=null and count!=null">
                     limit #{start},#{count}
-                </if>
+                </if> -->
         </select>    
   </mapper>
