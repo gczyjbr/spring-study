@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.how2java.pojo">
+    <resultMap type="Product" id="productBean">
+      <id column="pid" property="id"/>
+      <result column="pname" property="name"/>
+      <result column="price" property="price"/>
+     
+      <!-- 多对一的关系 -->
+      <!-- property: 指的是属性名称，javaTypa: 指的是属性的类型 -->
+      <association property="category" javaType="Category">
+        <id column="cid" property="id"/>
+        <result column="cname" property="name"/>
+      </association>
+    </resultMap>
+    
+   <!-- 根据id查询Person, 关联将Orders查询出来 -->
+<!--     <select id="listProduct" resultMap="productBean">
+      select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname'
+        from category_ c
+        left join product_ p on c.id = p.cid
+    </select> -->    
+    
+    <select id="listProduct" resultType="Product">
+      <bind name="likename" value="'%' + #{name} + '%'"/>
+       select * from product_ where name like #{likename}
+      <!-- <where>
+        <if test="name != null">
+          and name like concat('%', #{name}, '%')
+        </if>
+        <if test="price != null and price != 0">
+          and price > #{price}
+        </if>
+        <choose>
+          <when test="name != null">
+            name like concat('%', #{name}, '%')
+          </when>
+          <when test="price != null and price != 0">
+            price > #{price}
+          </when>
+          <otherwise>
+            id > 1
+          </otherwise>
+        </choose>
+      </where> -->
+       <!-- where id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+          #{item} 
+        </foreach>  -->
+    </select>
+    
+    <update id="updateProduct" parameterType="Product" >
+        update product_
+        <!-- <set> -->
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name=#{name},</if>
+            <if test="price != null">price=#{price}</if>
+        </trim>     
+        <!-- </set> -->
+         
+         where id=#{id}   
+    </update>
+    
+    <select id="getProduct" resultMap="productBean">
+      select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname'
+         from category_ c
+         left join product_ p on c.id = p.cid
+      where p.id = #{id}
+    </select>    
+        
+   <!--  <update id="updateProduct" parameterType="Product" >
+        update product_ set name=#{name}, cid = #{category.id} where id=#{id}    
+    </update>    -->
+  </mapper>
